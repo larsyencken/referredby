@@ -22,12 +22,9 @@ def who(url):
     domain = parts.netloc
     query = urlparse.parse_qs(parts.query)
 
-    enginedef = engines.search.get(domain)
-    if not enginedef:
-        return UnknownSource(url)
+    result = engines.detect_any(domain)
+    if isinstance(result, engines.EngineDef):
+        return SearchEngine(result.name, domain,
+                query[result.param][0].split(' '))
 
-    if enginedef.param in query:
-        return SearchEngine(enginedef.name, domain,
-                query[enginedef.param][0].split(' '))
-
-    return SearchEngine(enginedef.name, domain, [])
+    return result

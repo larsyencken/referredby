@@ -11,10 +11,18 @@ URI: : ParseSearchString project
 """
 
 from collections import namedtuple
+import re
 
 EngineDef = namedtuple('EngineDef', 'name param')
+MailDef = namedtuple('MailDef', 'name')
 
-search = {
+MAIL = [
+        (re.compile(r'.*\.mail\.yahoo\.com'), MailDef('Yahoo! Mail')),
+        (re.compile(r'mail\.google\.com'), MailDef('Google Mail')),
+        (re.compile(r'.*\.mail\.live\.com'), MailDef('Hotmail')),
+]
+
+SEARCH = {
     'abacho.com': EngineDef('Abacho', 'q'),
     'acbusca.com': EngineDef('ACBusca', 'query'),
     'aeiou.pt': EngineDef('Aeiou', 'q'),
@@ -373,3 +381,30 @@ search = {
     'videos.sapo.pt': EngineDef('SAPO videos', 'word'),
     'xl.pt': EngineDef('XL', 'pesquisa'),
 }
+
+def norm_domain(domain):
+    "Normalise the domain name for use in later exact matches."
+    if domain.startswith('www.') and len(domain) > 4:
+        return domain[4:]
+
+    return domain
+
+def detect_search(domain):
+    "Detect a search engine, or return None."
+    if domain in SEARCH:
+        return SEARCH[domain]
+
+    normed = norm_domain(domain)
+    if normed in SEARCH:
+        return SEARCH[normed]
+
+def detect_mail(domain):
+    "Detect an email site, or return None."
+    for pattern, maildef in MAIL:
+        if pattern.match(domain):
+            return maildef
+
+def detect_any(domain):
+    "Detect a search engine or email site, or return None."
+    return detect_search(domain) or detect_mail(domain)
+
