@@ -23,8 +23,11 @@ class SearchEngineTestCase(unittest.TestCase):
 
         self.assertEqual(
                 referredby.who(url),
-                referredby.SearchEngine('Yahoo', 'id.search.yahoo.com',
-                    ['term1', 'term2']),
+                referredby.SearchEngine(
+                    'Yahoo! Indonesia',
+                    'id.search.yahoo.com',
+                    ['term1', 'term2'],
+                ),
             )
 
 def suite():

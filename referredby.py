@@ -14,14 +14,20 @@ import urlparse
 SearchEngine = namedtuple('SearchEngine', 'name domain keywords')
 UnknownSource = namedtuple('UnknownSource', 'url')
 
+import engines
+
 def who(url):
+    "Try to parse the referrer url into a search engine and query terms."
     parts = urlparse.urlparse(url)
     domain = parts.netloc
     query = urlparse.parse_qs(parts.query)
 
-    if 'google' in domain:
-        if 'q' in query:
-            return SearchEngine('Google', domain, query['q'][0].split(' '))
-        return SearchEngine('Google', domain, [])
+    enginedef = engines.search.get(domain)
+    if not enginedef:
+        return UnknownSource(url)
 
-    return UnknownSource(url)
+    if enginedef.param in query:
+        return SearchEngine(enginedef.name, domain,
+                query[enginedef.param][0].split(' '))
+
+    return SearchEngine(enginedef.name, domain, [])
