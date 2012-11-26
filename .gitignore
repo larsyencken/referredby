@@ -4,3 +4,6 @@
 *.orig
 *.diff
 *.bak
+*.egg-info
+dist
+build
