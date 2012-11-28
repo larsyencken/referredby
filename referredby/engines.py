@@ -16,13 +16,13 @@ import re
 EngineDef = namedtuple('EngineDef', 'name param')
 MailDef = namedtuple('MailDef', 'name')
 
-MAIL = [
+MAIL_RE = [
         (re.compile(r'.*\.mail\.yahoo\.com'), MailDef('Yahoo! Mail')),
         (re.compile(r'mail\.google\.com'), MailDef('Google Mail')),
         (re.compile(r'.*\.mail\.live\.com'), MailDef('Hotmail')),
 ]
 
-SEARCH = {
+SEARCH_EXACT = {
     'abacho.com': EngineDef('Abacho', 'q'),
     'acbusca.com': EngineDef('ACBusca', 'query'),
     'aeiou.pt': EngineDef('Aeiou', 'q'),
@@ -34,6 +34,7 @@ SEARCH = {
     'as.starware.com': EngineDef('Starware', 'qry'),
     'ask.com': EngineDef('Ask dot com', 'q'),
     'atalhocerto.com.br': EngineDef('Atalho Certo', 'keyword'),
+    'at.search.yahoo.com': EngineDef('Yahoo Austria', 'p'),
     'au.search.yahoo.com': EngineDef('Yahoo Australia', 'p'),
     'bastaclicar.com.br': EngineDef('Basta Clicar', 'search'),
     'bemrapido.com.br': EngineDef('Bem Rapido', 'chave'),
@@ -307,14 +308,14 @@ SEARCH = {
     'google.vu': EngineDef('Google Vanuatu', 'q'),
     'google.ws': EngineDef('Google Samoa', 'q'),
     'gps.virgin.net': EngineDef('Virgin Search', 'q'),
-    'guruji.com': EngineDef('Guruji', 'q' ),
+    'guruji.com': EngineDef('Guruji', 'q'),
     'hotbot.com': EngineDef('HotBot', 'query'),
     'id.search.yahoo.com': EngineDef('Yahoo! Indonesia', 'p'),
     'ilmotore.com': EngineDef('ilMotore', 'query'),
     'images.search.yahoo.com': EngineDef('Yahoo! Images', 'p'),
     'images.google.com': EngineDef('Google Images', 'q'),
     'in.gr': EngineDef('In GR', 'q'),
-    'in.search.yahoo.com': EngineDef('Yahoo India', 'p' ),
+    'in.search.yahoo.com': EngineDef('Yahoo India', 'p'),
     'internetica.com.br': EngineDef('Internetica', 'busca'),
     'iol.pt': EngineDef('Pesquisa Iol', 'q'),
     'isohunt.com': EngineDef('Isohunt', 'ihq'),
@@ -332,11 +333,11 @@ SEARCH = {
     'netscape.com': EngineDef('Netscape', 's'),
     'pathfinder.gr': EngineDef('Pathfinder GR', 'q'),
     'pesquisa.clix.pt': EngineDef('Pesquisa Clix', 'question'),
-    'phantis.com': EngineDef('Phantis GR' , 'q'),
+    'phantis.com': EngineDef('Phantis GR', 'q'),
     'publico.clix.pt': EngineDef('Publico', 'q'),
     'record.pt': EngineDef('Jornal Record', 'q'),
     'rediff.com': EngineDef('Rediff', 'MT'),
-    'robby.gr': EngineDef('Robby GR'     , 'searchstr'),
+    'robby.gr': EngineDef('Robby GR', 'searchstr'),
     'rtp.pt': EngineDef('Rtp', 'search'),
     'sabores.sapo.pt': EngineDef('SAPO sabores', 'cxSearch'),
     'sapo.pt': EngineDef('Pesquisa SAPO', 'q'),
@@ -344,7 +345,7 @@ SEARCH = {
     'search.arabia.msn.com': EngineDef('MSN Arabia', 'q'),
     'search.bbc.co.uk': EngineDef('BBC Search', 'q'),
     'search.bablyon.com': EngineDef('Bablyon', 'q'),
-    'search.conduit.com': EngineDef('Conduit', 'q'  ),
+    'search.conduit.com': EngineDef('Conduit', 'q'),
     'search.conduit.com': EngineDef('Conduit', 'q'),
     'search.icq.com': EngineDef('ICQ dot com', 'q'),
     'search.live.com': EngineDef('Live.com', 'q'),
@@ -382,6 +383,11 @@ SEARCH = {
     'xl.pt': EngineDef('XL', 'pesquisa'),
 }
 
+SEARCH_RE = [
+    (re.compile(r'.*\.search\.yahoo\.com'), EngineDef('Yahoo!', 'p')),
+]
+
+
 def norm_domain(domain):
     "Normalise the domain name for use in later exact matches."
     if domain.startswith('www.') and len(domain) > 4:
@@ -389,22 +395,28 @@ def norm_domain(domain):
 
     return domain
 
+
 def detect_search(domain):
     "Detect a search engine, or return None."
-    if domain in SEARCH:
-        return SEARCH[domain]
+    if domain in SEARCH_EXACT:
+        return SEARCH_EXACT[domain]
 
     normed = norm_domain(domain)
-    if normed in SEARCH:
-        return SEARCH[normed]
+    if normed in SEARCH_EXACT:
+        return SEARCH_EXACT[normed]
+
+    for pattern, engine in SEARCH_RE:
+        if pattern.match(domain):
+            return engine
+
 
 def detect_mail(domain):
     "Detect an email site, or return None."
-    for pattern, maildef in MAIL:
+    for pattern, maildef in MAIL_RE:
         if pattern.match(domain):
             return maildef
+
 
 def detect_any(domain):
     "Detect a search engine or email site, or return None."
     return detect_search(domain) or detect_mail(domain)
-
