@@ -10,3 +10,11 @@ It's main entry point is the ``referredby.who`` method::
     SearchEngine(name='Yahoo! Indonesia', domain='id.search.yahoo.com', keywords=['friendly', 'cat'])
 
 The list of search engines that it matches is borrowed from Spiros Denaxas's `URI::ParseSearchString <https://github.com/spiros/URI-ParseSearchString>`_ project.
+
+Release notes
+=============
+
+0.1.1
+-----
+
+- Add more flexible matching of Yahoo search domains
