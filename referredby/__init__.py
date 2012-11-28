@@ -12,6 +12,7 @@ from collections import namedtuple
 import urlparse
 
 SearchEngine = namedtuple('SearchEngine', 'name domain keywords')
+MailProvider = namedtuple('MailProvider', 'name')
 
 import engines
 
@@ -26,5 +27,8 @@ def who(url):
     if isinstance(result, engines.EngineDef):
         keywords = query.get(result.param, [''])[0].split(' ') or None
         return SearchEngine(result.name, domain, keywords)
+
+    elif isinstance(result, engines.MailDef):
+        return MailProvider(result.name)
 
     return result
