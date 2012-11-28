@@ -14,6 +14,12 @@ The list of search engines that it matches is borrowed from Spiros Denaxas's `UR
 Release notes
 =============
 
+In development
+--------------
+
+- Improve matching of Yahoo mail
+- Add mail engine matching to the ``who()`` method
+
 0.1.1
 -----
 
