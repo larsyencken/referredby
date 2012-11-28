@@ -43,6 +43,14 @@ class SearchEngineTestCase(unittest.TestCase):
                 ),
             )
 
+    def test_yahoo_mail(self):
+        url = 'http://some.subdomain.mail.yahoo.net/some/path'
+
+        self.assertEqual(
+                referredby.who(url),
+                referredby.MailProvider('Yahoo! Mail'),
+            )
+
 
 def suite():
     return unittest.makeSuite(SearchEngineTestCase)
