@@ -24,3 +24,9 @@ Release notes
 -----
 
 - Add more flexible matching of Yahoo search domains
+
+
+.. image:: https://d2weczhvl823v0.cloudfront.net/larsyencken/referredby/trend.png
+   :alt: Bitdeli badge
+   :target: https://bitdeli.com/free
+
