@@ -15,7 +15,7 @@ VERSION = '0.1.2'
 setup(
         name='referredby',
         description="Parsing referrer URLS for common search engines.",
-        url="http://bitbucket.org/larsyencken/referredby/",
+        url="http://github.com/larsyencken/referredby/",
         version=VERSION,
         author="Lars Yencken",
         author_email="lars@yencken.org",
