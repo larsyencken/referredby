@@ -307,6 +307,7 @@ SEARCH_EXACT = {
     'google.vn': EngineDef('Google Vietnam', 'q'),
     'google.vu': EngineDef('Google Vanuatu', 'q'),
     'google.ws': EngineDef('Google Samoa', 'q'),
+    'googleadservices.com': EngineDef('Google Adwords', 'q'),
     'gps.virgin.net': EngineDef('Virgin Search', 'q'),
     'guruji.com': EngineDef('Guruji', 'q'),
     'hotbot.com': EngineDef('HotBot', 'query'),
