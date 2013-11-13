@@ -1,6 +1,8 @@
 referredby
 ==========
 
+.. image:: https://travis-ci.org/larsyencken/referredby.png
+
 A Python module for parsing referrer URLs, in particular for common search engines.
 
 It's main entry point is the ``referredby.who`` method::
