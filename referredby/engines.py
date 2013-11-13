@@ -17,9 +17,9 @@ EngineDef = namedtuple('EngineDef', 'name param')
 MailDef = namedtuple('MailDef', 'name')
 
 MAIL_RE = [
-        (re.compile(r'.*\.mail\.yahoo\.(com|net)'), MailDef('Yahoo! Mail')),
-        (re.compile(r'mail\.google\.com'), MailDef('Google Mail')),
-        (re.compile(r'.*\.mail\.live\.com'), MailDef('Hotmail')),
+    (re.compile(r'.*\.mail\.yahoo\.(com|net)'), MailDef('Yahoo! Mail')),
+    (re.compile(r'mail\.google\.com'), MailDef('Google Mail')),
+    (re.compile(r'.*\.mail\.live\.com'), MailDef('Hotmail')),
 ]
 
 SEARCH_EXACT = {

@@ -13,15 +13,15 @@ from setuptools import setup
 VERSION = '0.1.2'
 
 setup(
-        name='referredby',
-        description="Parsing referrer URLS for common search engines.",
-        url="http://github.com/larsyencken/referredby/",
-        version=VERSION,
-        author="Lars Yencken",
-        author_email="lars@yencken.org",
-        license="ISC",
-        long_description=open('README.rst').read(),
-        packages=[
-            'referredby',
-        ],
-    )
+    name='referredby',
+    description="Parsing referrer URLS for common search engines.",
+    url="http://github.com/larsyencken/referredby/",
+    version=VERSION,
+    author="Lars Yencken",
+    author_email="lars@yencken.org",
+    license="ISC",
+    long_description=open('README.rst').read(),
+    packages=[
+        'referredby',
+    ],
+)
