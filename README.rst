@@ -16,6 +16,11 @@ The list of search engines that it matches is borrowed from Spiros Denaxas's `UR
 Release notes
 =============
 
+0.1.3
+-----
+
+- Add ``googleadservices.com`` domain
+
 0.1.2
 -----
 
