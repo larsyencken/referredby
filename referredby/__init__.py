@@ -9,12 +9,18 @@ Methods for determining who referred you.
 """
 
 from collections import namedtuple
-import urlparse
+
+try:
+    # python 3
+    import urllib.parse as urlparse
+except ImportError:
+    # python 2
+    import urlparse
 
 SearchEngine = namedtuple('SearchEngine', 'name domain keywords')
 MailProvider = namedtuple('MailProvider', 'name')
 
-import engines
+from . import engines
 
 
 def who(url):
