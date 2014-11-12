@@ -16,6 +16,12 @@ The list of search engines that it matches is borrowed from Spiros Denaxas's `UR
 Release notes
 =============
 
+0.1.4
+-----
+
+- Add a bunch of new Google country domains
+- Support Python 3
+
 0.1.3
 -----
 
